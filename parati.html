@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+<title>Mi Princesita 💘</title>
+
+<style>
+body{
+    margin:0;
+    font-family:'Segoe UI',sans-serif;
+    background:linear-gradient(135deg, #ff9a9e 0%, #fad0c4 50%, #fbc2eb 100%);
+    overflow-x: hidden;
+    min-height: 100vh;
+}
+
+/* Estrellas ahora son corazones flotantes */
+.stars{
+    position:fixed;
+    width:100%;
+    height:100%;
+    background:url('https://www.transparenttextures.com/patterns/stardust.png');
+    opacity:0.2;
+    animation: twinkle 4s infinite alternate;
+    pointer-events: none;
+}
+
+@keyframes twinkle{
+    from{opacity:0.2;}
+    to{opacity:0.4;}
+}
+
+/* Luna más romántica */
+.moon{
+    position:absolute;
+    top:60px;
+    right:80px;
+    width:120px;
+    height:120px;
+    background:#fff0d4;
+    border-radius:50%;
+    box-shadow:0 0 50px 20px rgba(255,200,220,0.8);
+    z-index: 1;
+}
+
+@media (max-width: 768px) {
+    .moon {
+        top: 20px;
+        right: 20px;
+        width: 70px;
+        height: 70px;
+        box-shadow:0 0 30px 10px rgba(255,200,220,0.8);
+    }
+}
+
+/* Pantalla inicial */
+.container{
+    height:100vh;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    color:#5d2e4e;
+    text-shadow:2px 2px 4px rgba(255,255,255,0.5);
+    position: relative;
+    z-index: 10;
+    background: transparent;
+}
+
+.container h1{
+    font-size:3em;
+    margin-bottom:20px;
+}
+
+@media (max-width: 768px) {
+    .container h1 {
+        font-size: 2.2em;
+        padding: 0 15px;
+    }
+}
+
+.heart{
+    font-size:100px;
+    cursor:pointer;
+    animation:pulse 1.5s infinite;
+    filter:drop-shadow(0 0 20px #ff4d6d);
+}
+
+@keyframes pulse{
+    0%{transform:scale(1);}
+    50%{transform:scale(1.2); filter:drop-shadow(0 0 30px #ff1744);}
+    100%{transform:scale(1);}
+}
+
+/* Segunda pantalla */
+#mainContent{
+    display:none;
+    position:fixed;
+    inset:0;
+    width: 100%;
+    height: 100%;
+    overflow-y: auto; /* IMPORTANTE: Permitir scroll en toda la pantalla */
+    background:rgba(255,240,245,0.3);
+    backdrop-filter:blur(3px);
+    z-index: 20;
+}
+
+.content-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
+    padding: 30px;
+    min-height: 100%;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* Árbol - responsivo */
+.tree{
+    width: 500px;
+    max-width: 45vw;
+    animation:fadeIn 1.5s ease;
+    filter:drop-shadow(0 10px 20px rgba(0,0,0,0.2));
+    flex-shrink: 0;
+}
+
+@keyframes fadeIn{
+    from{opacity:0; transform:translateY(30px);}
+    to{opacity:1; transform:translateY(0);}
+}
+
+/* Carta romántica y responsiva */
+.card{
+    background:rgba(255,250,250,0.98);
+    width: 500px;
+    max-width: 45vw;
+    max-height: 80vh;
+    overflow-y:auto;
+    padding:30px;
+    border-radius:30px;
+    box-shadow:0 20px 50px rgba(200,100,150,0.4);
+    text-align:center;
+    border:2px solid #ffb6c1;
+    position:relative;
+    box-sizing: border-box;
+    flex-shrink: 0;
+}
+
+.card::before{
+    content:"💕";
+    position:absolute;
+    top:-15px;
+    left:50%;
+    transform:translateX(-50%);
+    font-size:30px;
+    background:#fff0f5;
+    padding:0 20px;
+    border-radius:50px;
+    white-space: nowrap;
+}
+
+.card h1{
+    margin-top:30px;
+    font-size:32px;
+    color:#c44569;
+    text-shadow:1px 1px 3px #ffb6c1;
+}
+
+.card p{
+    line-height:1.8;
+    font-size:17px;
+    color:#5d2e4e;
+    margin:20px 0;
+}
+
+.card p strong{
+    color:#ff4d6d;
+    font-size:1.2em;
+}
+
+/* Pétalos ahora son corazones */
+.petal{
+    position:fixed;
+    top:-10px;
+    font-size:22px;
+    animation:fall linear forwards;
+    pointer-events:none;
+    z-index:1000;
+}
+
+@keyframes fall{
+    to{
+        transform:translateY(110vh) rotate(360deg);
+        opacity:0;
+    }
+}
+
+/* Media query para móviles - AHORA SÍ FUNCIONA */
+@media (max-width: 768px) {
+    .content-wrapper {
+        flex-direction: column;
+        padding: 20px;
+        gap: 20px;
+        justify-content: flex-start;
+    }
+    
+    .tree {
+        width: 100%;
+        max-width: 350px;
+        margin-top: 20px;
+    }
+    
+    .card {
+        width: 100%;
+        max-width: 100%;
+        max-height: 50vh;
+        padding: 25px 20px;
+        margin-bottom: 30px;
+    }
+    
+    .card h1 {
+        font-size: 26px;
+        margin-top: 25px;
+    }
+    
+    .card p {
+        font-size: 15px;
+        line-height: 1.6;
+    }
+    
+    .card::before {
+        font-size: 24px;
+        padding: 0 15px;
+    }
+}
+
+/* Para pantallas muy pequeñas */
+@media (max-width: 480px) {
+    .tree {
+        max-width: 280px;
+    }
+    
+    .card {
+        padding: 20px 15px;
+        max-height: 45vh;
+    }
+    
+    .card h1 {
+        font-size: 24px;
+    }
+    
+    .card p {
+        font-size: 14px;
+        margin: 15px 0;
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="stars"></div>
+<div class="moon"></div>
+
+<!-- Pantalla inicial -->
+<div class="container">
+    <h1>Para Mi Princesita 💖</h1>
+    <div class="heart" onclick="start()">❤️</div>
+    <p>Toca el corazón con amor...</p>
+</div>
+
+<!-- Contenido principal -->
+<div id="mainContent">
+    <div class="content-wrapper"> <!-- NUEVO: Wrapper para controlar el layout -->
+
+        <!-- Árbol Sakura con muchas más ramas y hojas -->
+        <svg viewBox="0 0 600 600" class="tree">
+
+            <!-- Tronco principal más grueso -->
+            <path d="M300 600 
+                     C270 450, 330 450, 300 350
+                     C260 250, 340 250, 300 150
+                     C290 100, 310 100, 300 50"
+                  stroke="#5d4037"
+                  stroke-width="45"
+                  fill="none"
+                  stroke-linecap="round"/>
+
+            <!-- Raíces -->
+            <path d="M280 600 Q260 580 250 590" stroke="#5d4037" stroke-width="20" fill="none"/>
+            <path d="M320 600 Q340 580 350 590" stroke="#5d4037" stroke-width="20" fill="none"/>
+
+            <!-- Ramas principales más gruesas y extendidas -->
+            <path d="M300 300 Q200 250 150 180" stroke="#5d4037" stroke-width="25" fill="none" stroke-linecap="round"/>
+            <path d="M300 300 Q400 250 450 180" stroke="#5d4037" stroke-width="25" fill="none" stroke-linecap="round"/>
+            
+            <!-- Ramas secundarias izquierda -->
+            <path d="M250 240 Q180 200 140 140" stroke="#5d4037" stroke-width="18" fill="none" stroke-linecap="round"/>
+            <path d="M200 200 Q130 160 100 120" stroke="#5d4037" stroke-width="15" fill="none" stroke-linecap="round"/>
+            <path d="M280 220 Q220 180 190 140" stroke="#5d4037" stroke-width="15" fill="none" stroke-linecap="round"/>
+            <path d="M230 180 Q170 140 130 100" stroke="#5d4037" stroke-width="12" fill="none" stroke-linecap="round"/>
+            
+            <!-- Ramas secundarias derecha -->
+            <path d="M350 240 Q420 200 460 140" stroke="#5d4037" stroke-width="18" fill="none" stroke-linecap="round"/>
+            <path d="M400 200 Q470 160 500 120" stroke="#5d4037" stroke-width="15" fill="none" stroke-linecap="round"/>
+            <path d="M320 220 Q380 180 410 140" stroke="#5d4037" stroke-width="15" fill="none" stroke-linecap="round"/>
+            <path d="M370 180 Q430 140 470 100" stroke="#5d4037" stroke-width="12" fill="none" stroke-linecap="round"/>
+            
+            <!-- Ramas superiores -->
+            <path d="M300 150 Q260 100 230 70" stroke="#5d4037" stroke-width="15" fill="none" stroke-linecap="round"/>
+            <path d="M300 150 Q340 100 370 70" stroke="#5d4037" stroke-width="15" fill="none" stroke-linecap="round"/>
+            <path d="M280 120 Q240 70 210 40" stroke="#5d4037" stroke-width="12" fill="none" stroke-linecap="round"/>
+            <path d="M320 120 Q360 70 390 40" stroke="#5d4037" stroke-width="12" fill="none" stroke-linecap="round"/>
+
+            <!-- Flores grandes (corazones de flores) -->
+            <circle cx="150" cy="180" r="70" fill="#ffb7c5" opacity="0.9"/>
+            <circle cx="450" cy="180" r="70" fill="#ffb7c5" opacity="0.9"/>
+            <circle cx="300" cy="140" r="90" fill="#ffb7c5" opacity="0.9"/>
+            <circle cx="200" cy="110" r="60" fill="#ffb7c5" opacity="0.9"/>
+            <circle cx="400" cy="110" r="60" fill="#ffb7c5" opacity="0.9"/>
+            
+            <!-- Flores medianas -->
+            <circle cx="120" cy="130" r="45" fill="#ffa5b9" opacity="0.9"/>
+            <circle cx="480" cy="130" r="45" fill="#ffa5b9" opacity="0.9"/>
+            <circle cx="250" cy="80" r="50" fill="#ffa5b9" opacity="0.9"/>
+            <circle cx="350" cy="80" r="50" fill="#ffa5b9" opacity="0.9"/>
+            <circle cx="170" cy="70" r="40" fill="#ffa5b9" opacity="0.9"/>
+            <circle cx="430" cy="70" r="40" fill="#ffa5b9" opacity="0.9"/>
+            
+            <!-- Flores pequeñas -->
+            <circle cx="100" cy="90" r="30" fill="#ff92a8" opacity="0.9"/>
+            <circle cx="500" cy="90" r="30" fill="#ff92a8" opacity="0.9"/>
+            <circle cx="280" cy="40" r="35" fill="#ff92a8" opacity="0.9"/>
+            <circle cx="320" cy="40" r="35" fill="#ff92a8" opacity="0.9"/>
+            <circle cx="210" cy="40" r="25" fill="#ff92a8" opacity="0.9"/>
+            <circle cx="390" cy="40" r="25" fill="#ff92a8" opacity="0.9"/>
+            
+            <!-- Pétalos cayendo del árbol (detalles) -->
+            <circle cx="190" cy="200" r="15" fill="#ffc0cb" opacity="0.6"/>
+            <circle cx="410" cy="200" r="15" fill="#ffc0cb" opacity="0.6"/>
+            <circle cx="260" cy="160" r="12" fill="#ffc0cb" opacity="0.6"/>
+            <circle cx="340" cy="160" r="12" fill="#ffc0cb" opacity="0.6"/>
+            
+            <!-- Hojas verdes (toques de color) -->
+            <circle cx="140" cy="140" r="20" fill="#a8e6cf" opacity="0.7"/>
+            <circle cx="460" cy="140" r="20" fill="#a8e6cf" opacity="0.7"/>
+            <circle cx="220" cy="90" r="15" fill="#a8e6cf" opacity="0.7"/>
+            <circle cx="380" cy="90" r="15" fill="#a8e6cf" opacity="0.7"/>
+            
+            <!-- Centro de las flores (amarillo) -->
+            <circle cx="150" cy="180" r="20" fill="#ffd93d" opacity="0.8"/>
+            <circle cx="450" cy="180" r="20" fill="#ffd93d" opacity="0.8"/>
+            <circle cx="300" cy="140" r="25" fill="#ffd93d" opacity="0.8"/>
+            <circle cx="200" cy="110" r="15" fill="#ffd93d" opacity="0.8"/>
+            <circle cx="400" cy="110" r="15" fill="#ffd93d" opacity="0.8"/>
+
+        </svg>
+
+        <!-- Carta con mensaje -->
+        <div class="card">
+
+            <h1>Mi Princesita 💖</h1>
+            <p><strong>14 Febrero, 2026 ✨</strong></p>
+
+            <p>Hola mi princesita, buenos días.</p>
+
+            <p>Feliz 14 de febrero, hoy más que nunca hubiese querido pasarla contigo, a tu lado, pero ya llegará el día en el que estemos siempre juntos y nunca nos separemos ni para respirar.</p>
+
+            <p>Le doy gracias a Dios todos los días por haberme permitido volver a juntarme contigo y volver a ponerte en mi camino y a ti también, por ese mensaje que cambió y seguirá cambiando mi vida.</p>
+
+            <p>Eres todo lo que le da color a mi vida, a esos días grises, eres mi amor más sincero y real.</p>
+
+            <p>Te amo de una manera totalmente inexplicable y profunda con todo mi cuerpo, alma y corazón.</p>
+
+            <p>Ojalá este sea el primero de muchos 14 estando contigo.</p>
+
+            <p><strong>TE AMOOO 💘</strong></p>
+
+            <p>Siempre tuyo ❤️</p>
+
+        </div>
+
+    </div>
+</div>
+
+<!-- Música -->
+<audio id="bgMusic" loop>
+    <source src="perfect.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+function start(){
+    document.querySelector('.container').style.display='none';
+    document.getElementById('mainContent').style.display='block'; // Cambiado a block
+
+    const music=document.getElementById("bgMusic");
+    music.volume=0.3;
+    music.play().catch(e=>console.log("Espera interacción del usuario para la música"));
+
+    createPetals();
+}
+
+function createPetals(){
+    setInterval(()=>{
+        for(let i=0; i<3; i++){ // Tres corazones por vez
+            const petal=document.createElement("div");
+            petal.classList.add("petal");
+            
+            // Alternar entre diferentes emojis románticos
+            const emojis = ["🌸", "💗", "💕", "🌸", "💖", "🌸", "💘", "💓"];
+            petal.innerHTML = emojis[Math.floor(Math.random() * emojis.length)];
+            
+            petal.style.left=Math.random()*100+"vw";
+            petal.style.animationDuration=(3+Math.random()*6)+"s";
+            petal.style.fontSize=(15+Math.random()*25)+"px";
+            document.body.appendChild(petal);
+            setTimeout(()=>petal.remove(),9000);
+        }
+    }, 250);
+}
+
+// Forzar un pequeño delay para asegurar que todo se vea bien en móviles
+window.onload = function() {
+    // Si hay algún problema con el viewport en móviles, esto ayuda
+    setTimeout(function() {
+        window.dispatchEvent(new Event('resize'));
+    }, 100);
+};
+</script>
+
+</body>
+</html>
